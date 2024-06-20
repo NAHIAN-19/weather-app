@@ -7,12 +7,13 @@ function App() {
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState(null);
 
+  const unsplashApiKey = import.meta.env.VITE_UNSPLASH_API_KEY;
+  const openWeatherMapApiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
   useEffect(() => {
     fetchRandomBackground();
   }, []);
 
   const fetchRandomBackground = async () => {
-    const unsplashApiKey = 'JOrpJ6E5VlanE3PGcmgxSV-f8KMbvN4PO2FJAj4XdJk';
     const apiUrl = `https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature&orientation=landscape`;
 
     try {
@@ -33,7 +34,6 @@ function App() {
   };
 
   const getBackgroundImage = async (city) => {
-    const unsplashApiKey = 'JOrpJ6E5VlanE3PGcmgxSV-f8KMbvN4PO2FJAj4XdJk';
     const unsplashApiUrl = `https://api.unsplash.com/photos/random?query=nature,${city}&orientation=landscape&exclude=people&client_id=${unsplashApiKey}`;
 
     try {
@@ -58,7 +58,6 @@ function App() {
   };
 
   const handleGetWeather = async () => {
-    const apiKey = 'ae62d66e1cc3690e564573831853e907';
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
     try {
