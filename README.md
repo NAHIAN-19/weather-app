@@ -3,7 +3,7 @@
 
 ## Varients 
 - [Weather App](https://nahian-19.github.io/weather-app)  (vite & react)
-- [Weather App](https://nahian-19.github.io/weatherApp)  (html , tailwind-css & js)
+- [Weather App](https://nahian-19.github.io/WeatherApp)  (html , tailwind-css & js)
   
 A simple weather application built with React and Vite that fetches and displays the current weather information for a specified city using the OpenWeatherMap API. The app also changes its background image with each weather request using the Unsplash API.
 
