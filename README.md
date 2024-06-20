@@ -80,8 +80,6 @@ weather-app/
 ├── vite.config.js
 └── README.md
 ```
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
 ## Acknowledgements
   1. [OpenWeatherMap](https://openweathermap.org/api) for providing the weather data API.
   2. [Unsplash](https://unsplash.com/developers) for providing the background images API.
