@@ -9,9 +9,19 @@ function App() {
 
   const unsplashApiKey = import.meta.env.VITE_UNSPLASH_API_KEY;
   const openWeatherMapApiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
+
   useEffect(() => {
     fetchRandomBackground();
   }, []);
+
+  const preloadImage = (url) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = url;
+      img.onload = () => resolve(url);
+      img.onerror = () => reject(new Error('Failed to preload image'));
+    });
+  };
 
   const fetchRandomBackground = async () => {
     const apiUrl = `https://api.unsplash.com/photos/random?client_id=${unsplashApiKey}&query=nature&orientation=landscape`;
@@ -21,7 +31,9 @@ function App() {
       const data = await response.json();
 
       if (response.ok) {
-        document.body.style.backgroundImage = `url(${data.urls.full})`;
+        const imageUrl = data.urls.full;
+        await preloadImage(imageUrl);
+        document.body.style.backgroundImage = `url(${imageUrl})`;
         const attributionHtml = `Photo by <a href="https://unsplash.com/@${data.user.username}?utm_source=weather_app_2&utm_medium=referral" target="_blank" style="color:#0366d6;font-weight:bold;">${data.user.name}</a>
           on <a href="https://unsplash.com/?utm_source=weather_app_2&utm_medium=referral" target="_blank" style="color:#0366d6;font-weight:bold;">Unsplash</a>`;
         document.getElementById('attribution').innerHTML = attributionHtml;
@@ -41,7 +53,9 @@ function App() {
       const data = await response.json();
 
       if (response.ok && data.urls && data.urls.full) {
-        document.body.style.backgroundImage = `url(${data.urls.full})`;
+        const imageUrl = data.urls.full;
+        await preloadImage(imageUrl);
+        document.body.style.backgroundImage = `url(${imageUrl})`;
         const attributionHtml = `Photo by <a href="https://unsplash.com/@${data.user.username}?utm_source=weather_app_2&utm_medium=referral" target="_blank" style="color:#0366d6;font-weight:bold;">${data.user.name}</a>
           on <a href="https://unsplash.com/?utm_source=weather_app_2&utm_medium=referral" target="_blank" style="color:#0366d6;font-weight:bold;">Unsplash</a>`;
         document.getElementById('attribution').innerHTML = attributionHtml;
