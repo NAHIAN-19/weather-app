@@ -1,11 +1,19 @@
 import './App.css';
 
+import { FaCloud, FaMapMarkerAlt, FaTemperatureHigh, FaTint, FaWind } from 'react-icons/fa';
 import React, { useEffect, useState } from 'react';
+
+import Modal from 'react-modal';
+import WeatherMap from './WeatherMap';
+
+Modal.setAppElement('#root');
 
 function App() {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState(null);
+  const [isMapOpen, setIsMapOpen] = useState(false);
+  const [layer, setLayer] = useState('temp_new');
 
   const unsplashApiKey = import.meta.env.VITE_UNSPLASH_API_KEY;
   const openWeatherMapApiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
@@ -97,6 +105,15 @@ function App() {
     setCity('');
   };
 
+  const openMap = (selectedLayer) => {
+    setLayer(selectedLayer);
+    setIsMapOpen(true);
+  };
+
+  const closeMap = () => {
+    setIsMapOpen(false);
+  };
+
   return (
     <div className="overlay">
       <div className="app">
@@ -107,34 +124,44 @@ function App() {
           </div>
         ) : (
           <div className="container">
-            <h1>Weather App</h1>
-            <input
-              type="text"
-              value={city}
-              onChange={handleInputChange}
-              placeholder="Enter city name"
-            />
-            <button onClick={handleGetWeather}>Get Weather</button>
-
             {weather && (
-              <div className="weather-info">
-                <h2>Weather in {weather.name}</h2>
-                <div className="weather-grid">
-                  <div className="weather-details">
-                    <p>Temperature: {weather.main.temp}°C</p>
-                    <p>Weather: {weather.weather[0].description}</p>
-                    <p>Humidity: {weather.main.humidity}%</p>
-                    <p>Wind Speed: {weather.wind.speed} m/s</p>
-                  </div>
-                  <div className="weather-icon">
-                    <img
-                      src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-                      alt={weather.weather[0].description}
-                    />
-                  </div>
-                </div>
+              <div className="map-icons">
+                <FaCloud title="Clouds" onClick={() => openMap('clouds_new')} />
+                <FaTint title="Precipitation" onClick={() => openMap('precipitation_new')} />
+                <FaMapMarkerAlt title="Pressure" onClick={() => openMap('pressure_new')} />
+                <FaWind title="Wind" onClick={() => openMap('wind_new')} />
+                <FaTemperatureHigh title="Temperature" onClick={() => openMap('temp_new')} />
               </div>
             )}
+            <div className="weather-content">
+              <h1>Weather App</h1>
+              <input
+                type="text"
+                value={city}
+                onChange={handleInputChange}
+                placeholder="Enter city name"
+              />
+              <button onClick={handleGetWeather}>Get Weather</button>
+              {weather && (
+                <div className="weather-info">
+                  <h2>Weather in {weather.name}</h2>
+                  <div className="weather-grid">
+                    <div className="weather-details">
+                      <p>Temperature: {weather.main.temp}°C</p>
+                      <p>Weather: {weather.weather[0].description}</p>
+                      <p>Humidity: {weather.main.humidity}%</p>
+                      <p>Wind Speed: {weather.wind.speed} m/s</p>
+                    </div>
+                    <div className="weather-icon">
+                      <img
+                        src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                        alt={weather.weather[0].description}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         )}
         <button className="change-bg-btn" onClick={fetchRandomBackground}>
@@ -142,6 +169,24 @@ function App() {
         </button>
       </div>
       <div id="attribution" className="attribution"></div>
+      <Modal
+        isOpen={isMapOpen}
+        onRequestClose={closeMap}
+        contentLabel="Weather Map"
+        className="modal"
+        overlayClassName="modal-overlay"
+      >
+        <button onClick={closeMap} className="close-map-btn">Close Map</button>
+        {weather && (
+          <WeatherMap
+            lat={weather.coord.lat}
+            lon={weather.coord.lon}
+            city={weather.name}
+            openWeatherMapApiKey={openWeatherMapApiKey}
+            layer={layer}
+          />
+        )}
+      </Modal>
     </div>
   );
 }
