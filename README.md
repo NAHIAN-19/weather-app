@@ -1,11 +1,10 @@
 # Weather App
-![Screenshot (637)](https://github.com/NAHIAN-19/weather-app/assets/106859103/6757d6af-70de-460b-8a5c-c90c7cee474e)
+![Screenshot (663)](https://github.com/NAHIAN-19/weather-app/assets/106859103/e4528aca-de4c-47ca-bfb3-9aff329ef924)
 
-## Varients 
-- [Weather App](https://nahian-19.github.io/weather-app)  (vite & react)
-- [Weather App](https://nahian-19.github.io/WeatherApp/)  (html , tailwind-css & js)
-  
-A simple weather application built with React and Vite that fetches and displays the current weather information for a specified city using the OpenWeatherMap API. The app also changes its background image with each weather request using the Unsplash API.
+## Check Live : [Weather App](https://nahian-19.github.io/weather-app)
+
+## Intro
+  A simple weather application built with React and Vite that fetches and displays the current weather information for a specified city using the OpenWeatherMap API. The app also changes its background image with each weather request using the Unsplash API.
 
 ## Features
 
@@ -15,11 +14,11 @@ A simple weather application built with React and Vite that fetches and displays
 
 ## Technologies Used
 
-- React
-- Vite
+- React.js
+- Vite.js
 - OpenWeatherMap API
 - Unsplash API
-- CSS (Bootstrap for styling)
+- CSS
 - HTML
 
 ## Setup and Installation
@@ -52,14 +51,14 @@ A simple weather application built with React and Vite that fetches and displays
 
 6. **Open your browser and go to:**
     ```
-    http://localhost:4000
+    http://localhost:5173
     ```
 
 ## Usage
 
 1. Enter the name of the city you want to check the weather for in the input box.
 2. Click on the "Get Weather" button.
-3. The weather information will be displayed along with a new background image.
+3. The weather information & maps will be displayed along with a new background image.
 4. If the city is not found, an error page will be displayed with an option to go back.
 
 ## Project Structure
@@ -68,20 +67,24 @@ A simple weather application built with React and Vite that fetches and displays
 weather-app/
 │
 ├── public/
-│   └── index.html
+│   └── vite.svg
 │
 ├── src/
 │   ├── App.jsx
 │   ├── main.jsx
+│   ├── index.css
+│   ├── WeatherMap.jsx
 │   └── App.css
-│
+|    
 ├── .env
+│── .eslintrc.cjs
+│── index.html
 ├── package.json
+│── package-lock.json
 ├── vite.config.js
 └── README.md
 ```
 ## Acknowledgements
   1. [OpenWeatherMap](https://openweathermap.org/api) for providing the weather data API.
   2. [Unsplash](https://unsplash.com/developers) for providing the background images API.
-  3. [Bootstrap](https://getbootstrap.com) for the CSS framework used for styling.
-  4. [Vite](https://vitejs.dev) for the fast development build tool.
+  3. [Vite](https://vitejs.dev) for the fast development build tool.
